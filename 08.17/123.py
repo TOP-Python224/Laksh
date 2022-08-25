@@ -1,18 +1,24 @@
+# ИСПОЛЬЗОВАТЬ: в стандартной библиотеке есть модуль с несколькими строковыми константами, например со знаками препинания
+from string import punctuation
+
 vowels = 'aeiou'
 consonants = 'bcdfghjklmnpqrstvwxyz'
-punctuation = '?!,.'
 
-y = ''
+punct = ''
 upper = 0
 
-text = input().split()
+# ИСПОЛЬЗОВАТЬ: потерянные данные! (см. stdout)
+text = input().lower().split()
 for word in text:
     if word[-1] in punctuation:
-        y = word[-1]
+        # ИСПРАВИТЬ: а если знаков препинания несколько? (см. stdout)
+        punct = word[-1]
         word = word[:-1]
-
+    # ИСПРАВИТЬ: используйте строковый метод title()
     if word[0] == word[0].upper():
         word = word.lower()
+        # ИСПРАВИТЬ: если вы используете флаг, то используйте для этого объект bool
+        #     и если подразумевается обновление этого флага для каждого слова, то его объявление явно стоит поместить внутрь цикла — пока у вас полная сумятица в регистрах на выходе (см. stdout)
         upper += 1
 
     if word[0] in vowels:
@@ -20,13 +26,34 @@ for word in text:
             print(word[0].upper() + word[1:] + 'way', end=' ')
         else:
             print(word + 'way', end=' ')
-
+    # ОТВЕТИТЬ: зачем две независимые проверки?
     if word[0] in consonants:
-        for i in word:
-            if i in vowels:
-                x = word.find(i)
+        # КОММЕНТАРИЙ: здесь вы перебираете символы в строке — именуйте переменные соответственно
+        for char in word:
+            if char in vowels:
+                # КОММЕНТАРИЙ: а здесь вы получаете индекс символа — именуйте переменные соответственно
+                i = word.find(char)
                 break
         if upper == 1:
-            print(word[x].upper() + word[x+1:] + word[:x] + 'ay' + y)
+            print(word[i].upper() + word[i + 1:] + word[:i] + 'ay' + punct)
         else:
-            print(word[x:] + word[:x] + 'ay' + y)
+            print(word[i:] + word[:i] + 'ay' + punct)
+
+# КОММЕНТАРИЙ: существует также альтернативный вариант, с использованием дополнительных последовательностей для хранения информации о регистрах слов, знаках препинания и т.п.
+
+# stdin:
+# He said: "It's cold today".
+
+# stdout:
+# ehay aidsay: Oldcay: Oday"tay.
+
+# ДОБАВИТЬ: при наличии в коде работы с вводом и выводом в конце файла каждой задачи должны быть в виде комментария добавлены ввод и вывод из стандартных потоков — запустите код и добавьте свои варианты вывода под комментариями stdin и stdout
+
+# stdin 2:
+
+
+# stdout 2:
+
+
+
+# ИТОГ: многочисленные логические ошибки — 0.8/2.4
