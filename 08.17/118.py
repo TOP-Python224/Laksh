@@ -1,13 +1,19 @@
 punctuation = r'''!()-[]{};?@#$%:'"\,./^&;*_ '''
 
 # ИСПОЛЬЗОВАТЬ: зачем вызывать метод lower() в цикле неизвестно сколько раз, когда можно сделать это единожды?
-text = input().lower()
-for i in text:
-    if i in punctuation:
-        text = text.replace(i, '')
+
+punctuation = r'''!()-[]{};`?@#$%:'"\,./^&*_'''
+
+text = input('Введите текст : ').lower().split()
+words = []
+for word in text:
+    words += [word.strip(punctuation)]
+
 
 # ИСПРАВИТЬ: вы не поняли, что такое словесный палиндром — здесь не нужно все символы строки читать с конца к началу — речь о том, чтобы разбить строку на слова, а уже потом посмотреть совпадают ли прямой и обратный порядок самих слов
-if text == text[::-1]:
+
+
+if words == words[::-1]:
     print('Является словесным палиндромом')
 else:
     print('Не является словесным палиндромом')
@@ -15,10 +21,16 @@ else:
 # ДОБАВИТЬ: при наличии в коде работы с вводом и выводом в конце файла каждой задачи должны быть в виде комментария добавлены ввод и вывод из стандартных потоков — запустите код и добавьте свои варианты вывода под комментариями stdin и stdout
 
 # stdin:
-
+# Is it crazy how saying sentences backwards creates backwards sentences saying how crazy it is?
 
 # stdout:
+# Является словесным палиндромом
 
+# stdin2:
+# Is it crazy how saying sentences backwards creates backwards sentences saying how crazy it is2?
+
+# stdout:2
+#Не является словесным палиндромом
 
 
 # ИТОГ: неверная интерпретация условия — 0/2.4

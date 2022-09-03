@@ -1,59 +1,50 @@
 # ИСПОЛЬЗОВАТЬ: в стандартной библиотеке есть модуль с несколькими строковыми константами, например со знаками препинания
-from string import punctuation
-
-vowels = 'aeiou'
+puncts = r'''?!,.:" '''
+vowels = 'aeiouAEIOU'
 consonants = 'bcdfghjklmnpqrstvwxyz'
 
-punct = ''
-upper = 0
 
-# ИСПОЛЬЗОВАТЬ: потерянные данные! (см. stdout)
-text = input().lower().split()
+text = input().split()
+
 for word in text:
-    if word[-1] in punctuation:
-        # ИСПРАВИТЬ: а если знаков препинания несколько? (см. stdout)
-        punct = word[-1]
-        word = word[:-1]
-    # ИСПРАВИТЬ: используйте строковый метод title()
-    if word[0] == word[0].upper():
-        word = word.lower()
-        # ИСПРАВИТЬ: если вы используете флаг, то используйте для этого объект bool
-        #     и если подразумевается обновление этого флага для каждого слова, то его объявление явно стоит поместить внутрь цикла — пока у вас полная сумятица в регистрах на выходе (см. stdout)
-        upper += 1
-
-    if word[0] in vowels:
-        if upper == 1:
-            print(word[0].upper() + word[1:] + 'way', end=' ')
-        else:
-            print(word + 'way', end=' ')
-    # ОТВЕТИТЬ: зачем две независимые проверки?
-    if word[0] in consonants:
-        # КОММЕНТАРИЙ: здесь вы перебираете символы в строке — именуйте переменные соответственно
-        for char in word:
+    
+    word_left = ''
+    word_right = ''
+    word_t = ''
+    word_left = word[:len(word) - len(word.lstrip(puncts))]
+    word_right = word[len(word.rstrip(puncts)):]
+    word_t = word.strip(puncts)
+    word_t1 = word.strip(puncts)
+    
+    if word_t[0] in vowels:
+         word_t = word_t + 'way'
+    else:
+        for char in word_t:
             if char in vowels:
-                # КОММЕНТАРИЙ: а здесь вы получаете индекс символа — именуйте переменные соответственно
-                i = word.find(char)
+                i = word_t.find(char)
                 break
-        if upper == 1:
-            print(word[i].upper() + word[i + 1:] + word[:i] + 'ay' + punct)
-        else:
-            print(word[i:] + word[:i] + 'ay' + punct)
+        word_t = word_t[i:] + word_t[:i] + 'ay'
+    if word_t1.istitle():
+        word_t = word_t.title()
+    print(word_left + word_t + word_right, end = ' ')
+    
+    
 
-# КОММЕНТАРИЙ: существует также альтернативный вариант, с использованием дополнительных последовательностей для хранения информации о регистрах слов, знаках препинания и т.п.
+
 
 # stdin:
-# He said: "It's cold today".
+# He said: "Will you help me?"
 
 # stdout:
-# ehay aidsay: Oldcay: Oday"tay.
+# Ehay aidsay: "Illway ouyay elphay emay?"
 
 # ДОБАВИТЬ: при наличии в коде работы с вводом и выводом в конце файла каждой задачи должны быть в виде комментария добавлены ввод и вывод из стандартных потоков — запустите код и добавьте свои варианты вывода под комментариями stdin и stdout
 
 # stdin 2:
-
+# Vova, why are you doing this?!
 
 # stdout 2:
-
+#Ovavay, hyway areway ouyay oingday isthay?!
 
 
 # ИТОГ: многочисленные логические ошибки — 0.8/2.4
