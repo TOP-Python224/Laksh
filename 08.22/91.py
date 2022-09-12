@@ -1,3 +1,5 @@
+# ДОБАВИТЬ: аннотации типов для параметров и возвращаемого значения функции
+# ДОБАВИТЬ: строку документации для функции — начинается с глагола и отвечает на вопрос "что делает?"
 def ordinalDate(day, month, year):
     year_is_leap = year % 400 == 0 or year % 4 == 0 and year % 100 != 0
     month_days = [31, 28+year_is_leap, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -6,8 +8,10 @@ def ordinalDate(day, month, year):
         md += month_days[i]
     return md + day
 
-day, month, year = list(map(int, input('день, месяц, год: ').split()))
-print(f'Порядковый номер: { ordinalDate(day,month,year) }\n')
+
+# ИСПОЛЬЗОВАТЬ: для распаковки map объекта в несколько переменных нет необходимости сначала преобразовывать в список
+day, month, year = map(int, input('день, месяц, год: ').split())
+print(f'Порядковый номер: {ordinalDate(day, month, year)}\n')
 
 
 # stdin:
@@ -15,3 +19,6 @@ print(f'Порядковый номер: { ordinalDate(day,month,year) }\n')
 
 # stdout:
 # 284
+
+
+# ИТОГ: хорошо — 4/4

@@ -1,5 +1,5 @@
 from random import uniform, randint
-from typing import SupportsFloat
+from numbers import Real
 
 r_lst, r_str, r_tpl,  = [], '', ()
 result = {}
@@ -14,13 +14,16 @@ for _ in range(randint(1, 10)):
     r_tpl += (uniform(0.0, 100.0),)
 
 
-NumType = r_lst or r_str or r_str
-def average(seq: NumType) -> dict[float] | None:
+# ИСПОЛЬЗОВАТЬ: в переменных для аннотаций типов лучше не использовать объекты данных, особенно изменяемые и с которыми вы работает в коде — используйте имена типов
+SeqType = list[Real] | tuple[Real, ...] | str
+# ИСПОЛЬЗОВАТЬ: в аннотации словаря можно уточнить типы и ключей и значений
+def average(seq: SeqType) -> dict[str, float] | None:
+    # ИСПРАВИТЬ: первая строка документации начинается с глагола, отвечает на вопрос "что делает?" и формулируется в одно предложение — подробности при необходимости пишутся ниже
     """Функция принимает на вход один аргумент: список, кортеж или строку, содержащий только целые или вещественные числа. Функция возвращает словарь"""
-    arith, qua, harm = 0, 0, 0
-    geo = 1
+    arith, qua, harm, geo = 0, 0, 0, 1
 
     if not isinstance(seq, (list, tuple, str)):
+        # КОММЕНТАРИЙ: предполагалось, что это сообщение будет отредактировано для уточнения
         raise TypeError('сообщение об ошибке типа')
 
     try:
@@ -35,6 +38,7 @@ def average(seq: NumType) -> dict[float] | None:
     seqlen = len(seq)
     for number in seq:
         if not isinstance(number, (int, float)):
+            # КОММЕНТАРИЙ: предполагалось, что это сообщение будет отредактировано для уточнения
             raise TypeError('сообщение об ошибке типа')
         else:
             arith += number
@@ -46,7 +50,9 @@ def average(seq: NumType) -> dict[float] | None:
     result['qua'] = pow(qua/seqlen, 1/2)
     result['harm'] = seqlen / harm
 
+    # ОТВЕТИТЬ: а что в точности происходит в этой строке?
     sorted_result = sorted(result.items(), key=lambda i: i[1])
+
     sorted_result = dict(sorted_result)
     return sorted_result
 
@@ -73,3 +79,6 @@ print(average(r_str), end='\n\n')
 # 48.00003306908048  79.90576362160346  5.712424467353461  34.43941900909597  17.457775718206705  51.61033581396756
 
 # {'harm': 19.102281641210276, 'geo': 29.653110371740873, 'arith': 39.52095861655127, 'qua': 46.3250117924457}
+
+
+# ИТОГ: надеюсь, что код разобрали построчно — 3/3
