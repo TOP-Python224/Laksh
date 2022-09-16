@@ -2,32 +2,44 @@
 # ИСПРАВИТЬ: не смотрите на Стивенсона, он плохо знает Python; имена функциям и методам мы даём в нижнем регистре, разделяя слова символом подчёркивания — это называется змеиный_нижний_регистр (snake_lower_case)
 # ДОБАВИТЬ: аннотации типов для параметров и возвращаемого значения функции
 # ДОБАВИТЬ: строку документации для функции — начинается с глагола и отвечает на вопрос "что делает?"
-def ordinalDate2(day, year):
-    year_is_leap = year % 400 == 0 or year % 4 == 0 and year % 100 != 0
-    month_days = [31, 28+year_is_leap, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+def gregorianDate(day: int, year: int) -> int:
+    
+    """Принимает в качестве единственного параметра порядковую дату, включающую в себя год и день по порядку. В качестве результата функции возвращает день и месяц и год, соответствующие переданной порядковой дате."""
+    year_is_leap  = year % 400 == 0 or year % 4 == 0 and year % 100 != 0
+    month_days = [31,28+year_is_leap,31, 30,31,30, 31,31,30, 31,30,31]
     month = 1
     # ИСПРАВИТЬ: традиция и привычка диктуют нам использовать имена i, j, k только для индексов
-    for i in month_days:
-        if i < day:
+    for number in month_days:
+        if number < day:
             # ИСПОЛЬЗОВАТЬ: оператор расширенного присваивания
-            day -= i
-            month += 1
+            day -= number
+            month += number
     return day, month, year
     
 
 # ИСПОЛЬЗОВАТЬ: для распаковки map объекта в несколько переменных нет необходимости сначала преобразовывать в список
 day, year = map(int, input('день, год: ').split())
-print(*ordinalDate2(day, year))
+    
 
-day_len = int(input('Введите количество дней до второй даты'))
+print(*gregorianDate(day, year))
 
-year_is_leap = year % 400 == 0 or year % 4 == 0 and year % 100 != 0
-if year_is_leap:
+
+
+day_len = int(input('Введите количество дней до второй даты: '))
+
+year_is_leap  = year % 400 == 0 or year % 4 == 0 and year % 100 != 0
+if year_is_leap :
     if day_len + day < 366:
-        print(*ordinalDate2(day+day_len, year))
+        print(*gregorianDate(day+day_len, year))
     else:
-        print(*ordinalDate2(day+day_len-366, year+1))
+# <<<<<<< HEAD
+        print(*gregorianDate(day+day_len-366, year+1))
 
+# =======
+        print(*gregorianDate(day+day_len - 366, year + 1))
+        
+        
+# >>>>>>> parent of 8c38f9c (08.22: правки удобства читаемости)
 
 # stdin:
 # 10 2020
@@ -35,7 +47,11 @@ if year_is_leap:
 
 # stdout:
 # 10 01 2020
+# <<<<<<< HEAD
 # 21 10 2020
 
 
 # ИТОГ: хорошо — 4/4
+# =======
+#21 10 2020
+# >>>>>>> parent of 8c38f9c (08.22: правки удобства читаемости)
