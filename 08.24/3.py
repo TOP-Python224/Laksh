@@ -4,23 +4,23 @@ from numbers import Real
 from random import sample
 # параметры строго ключевые, потому что более лучше становится понять код
 def remove_numbers(lst: list[Real],
-                                   *,
-                                   a:  int,
-                                   boolean: bool) -> list | None:
-                                   """Редактирует переданный список (True) и возвращает None, либо возвращает отредактированную копию списка (False) """
-                                   
-                                   if boolean:
-                                       for i in range(a):
-                                           lst.remove(min(lst))
-                                           lst.remove(max(lst))
-                                       return None
+                                       *,
+                                       a:  int,
+                                       boolean: bool) -> list | None:
+                                       """Редактирует переданный список (True) и возвращает None, либо возвращает отредактированную копию списка (False) """
                                        
-                                   else:
-                                       new_lst = lst.copy()
-                                       for i in range(a):
-                                           new_lst.remove(min(new_lst))
-                                           new_lst.remove(max(new_lst))
-                                       return new_lst
+                                       if boolean:
+                                           for i in range(a):
+                                               lst.remove(min(lst))
+                                               lst.remove(max(lst))
+                                           return None
+                                           
+                                       else:
+                                           new_lst = lst.copy()
+                                           for i in range(a):
+                                               new_lst.remove(min(new_lst))
+                                               new_lst.remove(max(new_lst))
+                                           return new_lst
                                    
 # stdin:
 # print(remove_numbers(

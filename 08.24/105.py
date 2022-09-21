@@ -9,6 +9,7 @@ def decimal( num: int,
                         *,
                         bus_num: int = 16) -> str:
                         """Преобразует десятичное число в 16-ную систему исчисления """
+                        
                         private = num // bus_num
                         remainder = num % bus_num
                         
@@ -26,8 +27,7 @@ def hexadecima(num: str,
                               *,
                               bus_num: int = 16) -> int:
                               """Преобразует  обратно в десятичную систему исчисления """
-                              
-                              
+                
                               num_back = str(num)[::-1]
                               sum  = 0
                               for i in range(len(num_back)):
@@ -37,7 +37,6 @@ def hexadecima(num: str,
                                       else:
                                           raise ValueError('Число не принадлежит системе исчисления')
                                   elif num_back[i].isdecimal():
-                                      
                                       if 0 <= int(num_back[i]) <= 16:
                                           sum += int(num_back[i]) * bus_num ** i
                                       else:
@@ -50,7 +49,6 @@ def hexadecima(num: str,
 def result_invent(num: int,
                          from_bus_num: int,
                          in_bus_num: int) -> int|str:
-                         
                          return decimal(hexadecima(num = num , bus_num =  from_bus_num),bus_num = in_bus_num)
                           
                           
