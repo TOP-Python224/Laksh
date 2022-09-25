@@ -4,9 +4,10 @@ from math import *
 def fvp( fun: Callable,
                *args: int| float,
                key: bool = True) -> str| float:
+               """ принимает математическую функцию ввиде lambda и выводит результат  """
                result = fun(*args)
                
-               return result if key else str(result)
+               return f'{result:.2f}' if key else float(f'{result:.2f}')
 
 
 
