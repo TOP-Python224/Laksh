@@ -1,0 +1,1 @@
+print("lost_file.py: Я нашёлся!")
