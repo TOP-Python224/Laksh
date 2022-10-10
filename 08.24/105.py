@@ -1,60 +1,60 @@
-num_dict = {10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
-num_dict_inv = {k: v for v, k in num_dict.items()}
+digits = {10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
+digits_inv = {k: v for v, k in digits.items()}
 
 
-def decimal(num: int,
-            *,
-            bus_num: int = 16) -> str:
+def from_decimal(num: int,
+                 *,
+                 base: int = 16) -> str:
     """Преобразует десятичное число в 16-ную систему исчисления """
-    private = num // bus_num
-    remainder = num % bus_num
+    quotient = num // base
+    remainder = num % base
+    num = digits.get(remainder, remainder)
 
-    num = num_dict.get(remainder, remainder)
-
-    while private > 0:
-        remainder = private % bus_num
-        private = private // bus_num
-        num = num_dict.get(remainder, str(remainder)) + str(num)
+    while quotient > 0:
+        remainder = quotient % base
+        quotient = quotient // base
+        num = digits.get(remainder, str(remainder)) + str(num)
     return num
 
 
-def hexadecima(num: str,
+def to_decimal(num: str,
                *,
-               bus_num: int = 16) -> int:
+               base: int = 16) -> int:
     """Преобразует обратно в десятичную систему исчисления """
-    num_back = str(num)[::-1]
-    sum = 0
-    for i in range(len(num_back)):
-        if num_back[i].title() in num_dict_inv:
-            if 0 <= num_dict_inv[num_back[i].title()] <= bus_num:
-                sum += num_dict_inv[num_back[i].title()] * bus_num ** i
+    num_reversed = str(num)[::-1]
+    # КОММЕНТАРИЙ: sum — это имя встроенной функции, использовав его для своей переменной, вы лишились возможности использовать встроенную функцию
+    result = 0
+    for i in range(len(num_reversed)):
+        if num_reversed[i].title() in digits_inv:
+            if 0 <= digits_inv[num_reversed[i].title()] <= base:
+                result += digits_inv[num_reversed[i].title()] * base**i
             else:
                 raise ValueError('Число не принадлежит системе счисления')
-        elif num_back[i].isdecimal():
-            if 0 <= int(num_back[i]) <= 16:
-                sum += int(num_back[i]) * bus_num ** i
+        elif num_reversed[i].isdecimal():
+            if 0 <= int(num_reversed[i]) <= 16:
+                result += int(num_reversed[i]) * base**i
             else:
                 raise ValueError('Число не принадлежит системе счисления')
         else:
             raise ValueError('Символ не принадлежит системе счисления')
-    return sum
+    return result
 
 
 def result_invent(num: int,
-                  from_bus_num: int,
-                  in_bus_num: int) -> int | str:
-    return decimal(
-        hexadecima(num=num, bus_num=from_bus_num),
-        bus_num=in_bus_num
+                  base_from: int,
+                  base_to: int) -> int | str:
+    return from_decimal(
+        to_decimal(num=num, base=base_from),
+        base=base_to
     )
 
 
-num = input('Введите число в исходной системе счисления: ')
-from_bus_num = int(input('Введите исходную систему счисления (2-16): '))
-in_bus_num = int(input('Введите целевую систему счисления (2-16): '))
+number = input('Введите число в исходной системе счисления: ')
+base_source = int(input('Введите исходную систему счисления (2-16): '))
+base_destination = int(input('Введите целевую систему счисления (2-16): '))
 
-if 2 <= from_bus_num <= 16 and 2 <= in_bus_num <= 16:
-    print(result_invent(num, from_bus_num, in_bus_num))
+if 2 <= base_source <= 16 and 2 <= base_destination <= 16:
+    print(result_invent(number, base_source, base_destination))
 else:
     raise ValueError('Неправильная система счисления!')
 
