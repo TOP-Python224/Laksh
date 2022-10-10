@@ -1,6 +1,7 @@
 from pathlib import Path
 
 
+# КОММЕНТАРИЙ: согласен
 # разделил параметры по такому принципу, потому что все остальные являются числами.
 def parse_sound_file(file_extension: str,
                      *,
@@ -12,7 +13,7 @@ def parse_sound_file(file_extension: str,
     """Проверяет корректность переданных аргументов звукового файла и печатает результат проверки."""
     frequency_range = (8000, 11025, 16000, 22050, 32000, 44100, 48000, 88200, 96000, 176400, 192000, 352800, 384000)
     depth_range = (8, 16, 24, 32)
-    result = ' '
+    result = ''
     song_object = Path(file_extension)
 
     if song_object.suffix[1:] == 'wav':
@@ -72,3 +73,6 @@ print(parse_sound_file(
 # channels = 12 неверно
 # frequency = '441100' неверно
 # depth = 17 неверно
+
+
+# ИТОГ: очень хорошо — 4/4
