@@ -17,6 +17,7 @@ for _ in range(randint(1, 10)):
 SeqType = list[Real] | tuple[Real, ...] | str 
 
 def average(*seq: SeqType) -> dict[str, float] | None:
+    # ИСПРАВИТЬ: что именно делает функция с переданными ей данными?
     """Принимает на вход один аргумент: список, кортеж или строку, содержащий только целые или вещественные числа. Функция возвращает словарь"""
     arith, qua, harm, geo = 0, 0, 0, 1
     if not isinstance(seq, (list, tuple, str, float, int)):
